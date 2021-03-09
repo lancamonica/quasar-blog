@@ -1,0 +1,10 @@
+fields:
+  name:
+    name: name
+    type: text
+    __value: "{{name.firstName}}"
+
+  email:
+    name: email
+    type: email
+

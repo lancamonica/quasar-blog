@@ -1,0 +1,53 @@
+fields:
+  title:
+    name: title
+    type: text
+    __value: "{{lorem.words}}"
+
+  short_description:
+    name: short_description
+    type: text
+    __value: "{{lorem.words}}"
+
+  content:
+    name: content
+    type: text
+    __value: "{{lorem.paragraphs}}"
+
+  created_at:
+    name: created_at
+    type: datetime
+
+  updated_at:
+    name: updated_at
+    type: datetime
+
+  image:
+    name: image
+    type: text
+    __value: "{{image.imageUrl}}"
+
+  categories:
+    name: categories
+    type: select
+    __value: "1"
+    __random_values:
+      - "1"
+      - "2"
+      - "3"
+    options:
+      - label: Tech
+        value: "1"
+      - label: Nature
+        value: "2"
+      - label: News
+        value: "3"
+      - label: Music
+        value: "4"
+
+
+  authors:
+    name: authors
+    type: select
+    __relation: authors
+    __relation_label: name
