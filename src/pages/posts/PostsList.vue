@@ -1,12 +1,12 @@
 <template>
-  <div class="list q-pa-lg">
+  <div class="page-posts-list q-pa-lg">
     <div class="row justify-between">
       <q-input v-model="text" label="Pesquisar" rounded outlined>
         <template v-slot:append>
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-btn class="list__icon" :size="size" flat round icon="add">
+      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add">
         <q-tooltip>Novo Post</q-tooltip>
       </q-btn>
     </div>
@@ -96,11 +96,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .list {
-
+  .page-posts-list {
     &__icon {
       color: $primary;
     }
   }
-
 </style>
