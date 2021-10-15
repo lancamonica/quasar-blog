@@ -79,7 +79,6 @@ export default {
           createdAt: '10/10/2021',
           lastChange: '14/10/2021'
         }
-
       ]
     }
   },
