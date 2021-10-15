@@ -34,10 +34,10 @@
         </template>
         <template v-slot:button>
           <div class="row justify-end">
-            <q-btn class="list__icon" :size="size" flat round icon="edit">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
-            <q-btn class="list__icon" :size="size" flat round icon="delete">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete">
               <q-tooltip>Excluir</q-tooltip>
             </q-btn>
           </div>
@@ -90,6 +90,7 @@ export default {
       size: 'md'
     }
   },
+
   name: 'PostsList'
 }
 </script>
