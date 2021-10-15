@@ -9,7 +9,7 @@
         <div class="q-gutter-sm">
           <q-breadcrumbs active-color="white">
             <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Home" icon="home" />
-            <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Postages" icon="dashboard" />
+            <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Postagens" icon="dashboard" />
             <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Autores" icon="person" />
           </q-breadcrumbs>
         </div>
