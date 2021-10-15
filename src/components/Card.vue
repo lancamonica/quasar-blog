@@ -1,10 +1,12 @@
 <template>
   <div class="card text-center q-ma-md q-pa-md shadow-up-3">
     <slot class="card__image" name="image" />
-    <slot name="text" />
+    <div class="card__text">
+      <slot name="text" />
+    </div>
     <hr />
-    <div class="card__data row inline content-start">
-      <slot class="card-data" name="data" />
+    <div class="card__content row inline content-start">
+      <slot name="content" />
     </div>
     <slot name="button" />
   </div>
@@ -26,16 +28,16 @@ export default {
       height: 25vh;
     }
 
-     &__data {
-      color: #4a4a4a;
+     &__content {
+      color: $text;
+    }
+
+    &__text {
+      color: $text;
     }
 
     hr {
       border-top: 1px solid #efefef;
-    }
-
-    .sub-title {
-      color: #4a4a4a;
     }
 
   }
