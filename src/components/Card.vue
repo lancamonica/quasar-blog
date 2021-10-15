@@ -39,6 +39,5 @@ export default {
     hr {
       border-top: 1px solid #efefef;
     }
-
   }
 </style>
