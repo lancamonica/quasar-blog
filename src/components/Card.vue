@@ -29,11 +29,11 @@ export default {
     }
 
      &__content {
-      color: $text;
+      color: $deep-grey;
     }
 
     &__text {
-      color: $text;
+      color: $deep-grey;
     }
 
     hr {

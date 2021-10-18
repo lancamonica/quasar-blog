@@ -45,7 +45,7 @@
       </card>
     </div>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination v-model="current" :max="5" />
+      <q-pagination color="grey-9" v-model="current" :max="5" />
     </div>
   </div>
 </template>
@@ -98,7 +98,7 @@ export default {
 <style lang="scss">
   .page-posts-list {
     &__icon {
-      color: $primary;
+      color: $dark-grey;
     }
   }
 </style>
