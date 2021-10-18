@@ -2,10 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-grey-9 glossy">
-        <q-toolbar-title>
-          Quasar Blog
-        </q-toolbar-title>
-
+        <q-toolbar-title>Quasar Blog</q-toolbar-title>
         <div class="q-gutter-sm">
           <q-breadcrumbs active-color="white">
             <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Home" icon="home" />
