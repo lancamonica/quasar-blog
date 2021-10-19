@@ -11,7 +11,7 @@
       </q-btn>
     </div>
     <div class="q-pa-md row justify-center">
-      <card v-for="(card, index) in cardList" :key="index">
+      <card v-for="(card, index) in postsList" :key="index">
         <template v-slot:image>
           <div class="col-6">
             <q-img class="card__image" :src="card.image">
@@ -24,7 +24,7 @@
         <template v-slot:text>
           <h1 class="text-h4">{{ card.title }}</h1>
           <span class="sub-title q-mb-md text-body1 ellipsis-3-lines">
-            {{ card.content }}
+            {{ card.description }}
           </span>
         </template>
         <template v-slot:content>
@@ -52,6 +52,7 @@
 
 <script>
 import Card from 'components/Card.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -59,27 +60,19 @@ export default {
   },
 
   computed: {
-    cardList () {
-      return [
-        {
-          image: 'https://cdn.quasar.dev/img/parallax2.jpg',
-          category: 'Categoria',
-          title: 'Titulo 1',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          author: 'Monica',
-          createdAt: '13/10/2021',
-          lastChange: '15/10/2021'
-        },
-        {
-          image: 'https://cdn.quasar.dev/img/parallax2.jpg',
-          category: 'Categoria',
-          title: 'Titulo 2',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          author: 'Monica',
-          createdAt: '10/10/2021',
-          lastChange: '14/10/2021'
-        }
-      ]
+    ...mapGetters({ postsList: 'posts/postsList' })
+  },
+
+  methods: {
+    ...mapActions({ getPosts: 'posts/getPosts' })
+  },
+
+  async created () {
+    try {
+      const data = await this.getPosts()
+      return data
+    } catch (err) {
+      console.log(err)
     }
   },
 
