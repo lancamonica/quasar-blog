@@ -5,7 +5,7 @@
       <slot name="text" />
     </div>
     <hr />
-    <div class="card__content row inline content-start">
+    <div class="card__content column items-start content-start">
       <slot name="content" />
     </div>
     <slot name="button" />
@@ -21,7 +21,7 @@ export default {
 <style lang="scss">
   .card {
     max-width: 300px;
-    max-height: 74vh;
+    max-height: 86vh;
 
     &__image {
       width: 100%;
