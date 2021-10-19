@@ -11,7 +11,7 @@
       </q-btn>
     </div>
     <div class="q-pa-md row justify-center">
-      <card v-for="(card, index) in cardList" :key="index">
+      <card v-for="(card, index) in postsList" :key="index">
         <template v-slot:image>
           <div class="col-6">
             <q-img class="card__image" :src="card.image">
@@ -60,20 +60,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ postsList: 'posts/postsList' }),
-
-    cardList () {
-      return this.postsList
-    }
-
+    ...mapGetters({ postsList: 'posts/postsList' })
   },
 
   methods: {
     ...mapActions({ getPosts: 'posts/getPosts' })
   },
 
-  created () {
-    this.getPosts()
+  async created () {
+    try {
+      const data = await this.getPosts()
+      return data
+    } catch (err) {
+      console.log(err)
+    }
   },
 
   data () {
