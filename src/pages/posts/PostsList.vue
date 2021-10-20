@@ -6,7 +6,7 @@
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add">
+      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add" @click="add">
         <q-tooltip>Novo Post</q-tooltip>
       </q-btn>
     </div>
@@ -34,13 +34,25 @@
         </template>
         <template v-slot:button>
           <div class="row justify-end">
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit" @click="edit(card.id)">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete"  @click="confirm = true">
               <q-tooltip>Excluir</q-tooltip>
             </q-btn>
           </div>
+           <dialogComponent :confirm.sync="confirm">
+            <template v-slot:icon>
+              <q-avatar icon="delete_forever" color="grey-9" text-color="white" />
+            </template>
+            <template v-slot:text>
+              <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
+            </template>
+            <template v-slot:button>
+              <q-btn flat label="Cancelar" color="grey-9" @click="confirm = false" />
+              <q-btn flat label="Confirmar" color="grey-9" @click="handleDelete(card.id)" />
+            </template>
+          </dialogComponent>
         </template>
       </card>
     </div>
@@ -53,18 +65,38 @@
 <script>
 import Card from 'components/Card.vue'
 import { mapActions, mapGetters } from 'vuex'
+import DialogComponent from 'components/Dialog.vue'
 
 export default {
   components: {
-    Card
+    Card,
+    DialogComponent
   },
 
   computed: {
-    ...mapGetters({ postsList: 'posts/postsList' })
+    ...mapGetters({
+      postsList: 'posts/postsList',
+      postDelete: 'posts/postDelete'
+    })
   },
 
   methods: {
-    ...mapActions({ getPosts: 'posts/getPosts' })
+    ...mapActions({
+      getPosts: 'posts/getPosts',
+      deletePost: 'posts/deletePost'
+    }),
+
+    edit (id) {
+      this.$router.push({ name: 'DetailsPostEdit', query: { id } })
+    },
+
+    add () {
+      this.$router.push({ name: 'DetailsPost' })
+    },
+
+    async handleDelete (id) {
+      await this.deletePost(id)
+    }
   },
 
   async created () {
@@ -80,7 +112,8 @@ export default {
     return {
       text: '',
       current: 1,
-      size: 'md'
+      size: 'md',
+      confirm: false
     }
   },
 
