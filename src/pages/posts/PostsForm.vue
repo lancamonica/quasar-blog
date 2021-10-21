@@ -1,7 +1,7 @@
 <template>
-  <div class="page-post q-pa-lg">
+  <div class="page-post-form q-pa-lg">
     <div class="col-6">
-      <q-img class="page-post__image full-width" :src="detailsPost.image" />
+      <q-img class="page-post-form__image full-width" :src="detailsPost.image" />
       <q-btn color="grey-4" text-color="brand" glossy unelevated icon="camera_enhance" label="Editar" @click="openInputUrl" />
     </div>
     <div v-if="showInputUrl">
@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .page-post {
+  .page-post-form {
     &__image {
       height: 50vh;
     }
