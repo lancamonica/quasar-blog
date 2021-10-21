@@ -18,12 +18,15 @@ const mutations = {
   setPosts (state, data) {
     state.posts = data
   },
+
   setDetailsPost (state, data) {
     state.detailsPost = data
   },
+
   setPutPost (state, data) {
     state.updatePost = data
   },
+
   setDeletePost (state, data) {
     state.deletePost = data
   }

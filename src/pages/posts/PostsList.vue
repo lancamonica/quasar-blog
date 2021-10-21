@@ -6,7 +6,7 @@
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add" @click="handleAdd">
+      <q-btn class="page-posts-list__icon" size="md" flat round icon="add" :to="{ name: 'PostsForm' }" >
         <q-tooltip>Novo Post</q-tooltip>
       </q-btn>
     </div>
@@ -30,14 +30,14 @@
         <template v-slot:content>
           <span class="text-body2">Autor: {{ card.author }}</span>
           <span class="text-body2">Data de criação: {{ card.createdAt }}</span>
-          <span class="text-body2">Última alteração: {{ card.lastChange }}</span>
+          <span class="text-body2">Última alteração: {{ card.updatedAt }}</span>
         </template>
         <template v-slot:button>
           <div class="row justify-end">
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit" @click="handleEdit(card.id)">
+            <q-btn class="page-posts-list__icon" size="md" flat round icon="edit" @click="postEdit(card.id)">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete"  @click="handleOpen(card.id)">
+            <q-btn class="page-posts-list__icon" size="md" flat round icon="delete"  @click="openModal(card.id)">
               <q-tooltip>Excluir</q-tooltip>
             </q-btn>
           </div>
@@ -55,7 +55,7 @@
           <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label="Cancelar" color="brand" @click="isOpenModal = false" />
+          <q-btn flat label="Cancelar" color="brand" @click="openModal" />
           <q-btn flat label="Confirmar" color="brand" @click="handleDelete" />
         </q-card-actions>
       </q-card>
@@ -85,12 +85,8 @@ export default {
       deletePost: 'posts/deletePost'
     }),
 
-    handleEdit (id) {
+    postEdit (id) {
       this.$router.push({ name: 'DetailsPostEdit', query: { id } })
-    },
-
-    handleAdd () {
-      this.$router.push({ name: 'DetailsPost' })
     },
 
     async handleDelete () {
@@ -98,8 +94,8 @@ export default {
       this.$router.go()
     },
 
-    handleOpen (id) {
-      this.isOpenModal = true
+    openModal (id) {
+      this.isOpenModal = !this.isOpenModal
       this.idPost = id
     }
   },
@@ -117,7 +113,6 @@ export default {
     return {
       text: '',
       current: 1,
-      size: 'md',
       isOpenModal: false,
       idPost: ''
     }
