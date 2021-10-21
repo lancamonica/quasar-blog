@@ -6,7 +6,7 @@
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add" @click="add">
+      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add" @click="handleAdd">
         <q-tooltip>Novo Post</q-tooltip>
       </q-btn>
     </div>
@@ -34,43 +34,42 @@
         </template>
         <template v-slot:button>
           <div class="row justify-end">
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit" @click="edit(card.id)">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit" @click="handleEdit(card.id)">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete"  @click="confirm = true">
+            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete"  @click="handleOpen(card.id)">
               <q-tooltip>Excluir</q-tooltip>
             </q-btn>
           </div>
-           <dialogComponent :confirm.sync="confirm">
-            <template v-slot:icon>
-              <q-avatar icon="delete_forever" color="grey-9" text-color="white" />
-            </template>
-            <template v-slot:text>
-              <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
-            </template>
-            <template v-slot:button>
-              <q-btn flat label="Cancelar" color="grey-9" @click="confirm = false" />
-              <q-btn flat label="Confirmar" color="grey-9" @click="handleDelete(card.id)" />
-            </template>
-          </dialogComponent>
         </template>
       </card>
     </div>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination color="grey-9" v-model="current" :max="5" />
+      <q-pagination color="brand" v-model="current" :max="5" />
     </div>
+
+    <q-dialog v-model="isOpenModal" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="delete_forever" color="grey-9" text-color="white" />
+          <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" color="brand" @click="isOpenModal = false" />
+          <q-btn flat label="Confirmar" color="brand" @click="handleDelete" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
-import Card from 'components/Card.vue'
+import Card from 'components/Card'
 import { mapActions, mapGetters } from 'vuex'
-import DialogComponent from 'components/Dialog.vue'
 
 export default {
   components: {
-    Card,
-    DialogComponent
+    Card
   },
 
   computed: {
@@ -86,16 +85,22 @@ export default {
       deletePost: 'posts/deletePost'
     }),
 
-    edit (id) {
+    handleEdit (id) {
       this.$router.push({ name: 'DetailsPostEdit', query: { id } })
     },
 
-    add () {
+    handleAdd () {
       this.$router.push({ name: 'DetailsPost' })
     },
 
-    async handleDelete (id) {
-      await this.deletePost(id)
+    async handleDelete () {
+      await this.deletePost(this.idPost)
+      this.$router.go()
+    },
+
+    handleOpen (id) {
+      this.isOpenModal = true
+      this.idPost = id
     }
   },
 
@@ -113,7 +118,8 @@ export default {
       text: '',
       current: 1,
       size: 'md',
-      confirm: false
+      isOpenModal: false,
+      idPost: ''
     }
   },
 
@@ -125,6 +131,10 @@ export default {
   .page-posts-list {
     &__icon {
       color: $dark-grey;
+    }
+
+    .bg-brand {
+      background: $dark-grey;
     }
   }
 </style>

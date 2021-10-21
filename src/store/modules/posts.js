@@ -4,7 +4,6 @@ const state = {
   posts: [],
   detailsPost: {},
   updatePost: {},
-  newPost: {},
   deletePost: {}
 }
 
@@ -12,7 +11,6 @@ const getters = {
   postsList: state => state.posts,
   detailsPost: state => state.detailsPost,
   putEditPost: state => state.updatePost,
-  newPost: state => state.newPost,
   postDelete: state => state.deletePost
 }
 
@@ -25,9 +23,6 @@ const mutations = {
   },
   setPutPost (state, data) {
     state.updatePost = data
-  },
-  setNewPost (state, data) {
-    state.newPost = data
   },
   setDeletePost (state, data) {
     state.deletePost = data
@@ -70,7 +65,7 @@ const actions = {
     } catch {}
   },
 
-  async addPost ({ commit }, content) {
+  async addPost (context, content) {
     try {
       const { data } = await axios({
         method: 'POST',
@@ -78,7 +73,7 @@ const actions = {
         data: content
       })
 
-      commit('setNewPost', data)
+      return data
     } catch {}
   },
 
