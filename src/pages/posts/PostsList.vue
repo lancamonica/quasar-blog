@@ -127,9 +127,5 @@ export default {
     &__icon {
       color: $dark-grey;
     }
-
-    .bg-brand {
-      background: $dark-grey;
-    }
   }
 </style>

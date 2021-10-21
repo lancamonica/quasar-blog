@@ -2,7 +2,7 @@
   <div class="page-post q-pa-lg">
     <div class="col-6">
       <q-img class="page-post__image full-width" :src="detailsPost.image" />
-      <q-btn color="grey-4" text-color="brand" glossy unelevated icon="camera_enhance" label="Editar" @click="isEditImage = true" />
+      <q-btn color="grey-4" text-color="brand" glossy unelevated icon="camera_enhance" label="Editar" @click="openInputUrl" />
     </div>
     <div v-if="showInputUrl">
       <q-input class="col-3 q-mt-md" rounded outlined v-model="detailsPost.image" label="URL da imagem" />
@@ -57,8 +57,7 @@ export default {
 
       if (this.isEdit) {
         await this.updatePost(data)
-        this.$router.push({ name: 'PostsList' })
-        return
+        return this.$router.push({ name: 'PostsList' })
       }
 
       await this.addPost(data)
@@ -73,6 +72,10 @@ export default {
 
     openModal () {
       this.isOpenModal = !this.isOpenModal
+    },
+
+    openInputUrl () {
+      this.isEditImage = true
     }
 
   },
@@ -107,7 +110,6 @@ export default {
     return {
       text: '',
       current: 1,
-      size: 'md',
       isOpenModal: false,
       isEditImage: false
     }
@@ -121,10 +123,6 @@ export default {
   .page-post {
     &__image {
       height: 50vh;
-    }
-
-    .bg-brand {
-      background: $dark-grey;
     }
   }
 </style>
