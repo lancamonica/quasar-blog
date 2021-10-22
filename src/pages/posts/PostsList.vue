@@ -48,35 +48,34 @@
       <q-pagination color="brand" v-model="current" :max="5" />
     </div>
 
-    <q-dialog v-model="isOpenModal" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="delete_forever" color="grey-9" text-color="white" />
-          <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn flat label="Cancelar" color="brand" @click="openModal" />
-          <q-btn flat label="Confirmar" color="brand" @click="handleDelete" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+    <dialog-confirm v-model="isOpenModal" :content="contentDialog" @cancel="openModal" @confirm="handleDelete" />
   </div>
 </template>
 
 <script>
 import Card from 'components/Card'
 import { mapActions, mapGetters } from 'vuex'
+import DialogConfirm from 'components/DialogConfirm'
 
 export default {
   components: {
-    Card
+    Card,
+    DialogConfirm
   },
 
   computed: {
     ...mapGetters({
       postsList: 'posts/postsList',
       postDelete: 'posts/postDelete'
-    })
+    }),
+
+    contentDialog () {
+      return {
+        subtitle: 'Tem certeza que deseja excluir este post?',
+        labelCancel: 'Cancelar',
+        labelSave: 'Confirmar'
+      }
+    }
   },
 
   methods: {
@@ -114,7 +113,8 @@ export default {
       text: '',
       current: 1,
       isOpenModal: false,
-      idPost: ''
+      idPost: '',
+      content: {}
     }
   },
 

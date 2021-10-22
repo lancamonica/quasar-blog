@@ -20,26 +20,20 @@
       <q-btn v-if="idPost" color="brand" label="Excluir" @click="openModal" />
     </div>
 
-    <q-dialog v-model="isOpenModal" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="delete_forever" color="grey-9" text-color="white" />
-          <span class="q-ml-sm">Tem certeza que deseja excluir este post?</span>
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn flat label="Cancelar" color="brand" @click="openModal" />
-          <q-btn flat label="Confirmar" color="brand" @click="handleDelete" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+    <dialog-confirm v-model="isOpenModal" :content="contentDialog" @cancel="openModal" @confirm="handleDelete" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { date } from 'quasar'
+import DialogConfirm from 'components/DialogConfirm'
 
 export default {
+  components: {
+    DialogConfirm
+  },
+
   methods: {
     ...mapActions({
       getPost: 'posts/getPost',
@@ -97,6 +91,14 @@ export default {
 
     idPost () {
       return this.$route.query.id
+    },
+
+    contentDialog () {
+      return {
+        subtitle: 'Tem certeza que deseja excluir este post?',
+        labelCancel: 'Cancelar',
+        labelSave: 'Confirmar'
+      }
     }
   },
 
