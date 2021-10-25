@@ -81,7 +81,6 @@ const actions = {
   },
 
   async deleteAuthor ({ commit }, id) {
-    console.log(id)
     try {
       const { data } = await axios({
         method: 'DELETE',
