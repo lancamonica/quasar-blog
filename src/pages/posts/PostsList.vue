@@ -6,7 +6,7 @@
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-btn class="page-posts-list__icon" :size="size" flat round icon="add">
+      <q-btn class="page-posts-list__icon" size="md" flat round icon="add" :to="{ name: 'PostsForm' }" >
         <q-tooltip>Novo Post</q-tooltip>
       </q-btn>
     </div>
@@ -30,14 +30,14 @@
         <template v-slot:content>
           <span class="text-body2">Autor: {{ card.author }}</span>
           <span class="text-body2">Data de criação: {{ card.createdAt }}</span>
-          <span class="text-body2">Última alteração: {{ card.lastChange }}</span>
+          <span class="text-body2">Última alteração: {{ card.updatedAt }}</span>
         </template>
         <template v-slot:button>
           <div class="row justify-end">
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="edit">
+            <q-btn class="page-posts-list__icon" size="md" flat round icon="edit" @click="postEdit(card.id)">
               <q-tooltip>Editar</q-tooltip>
             </q-btn>
-            <q-btn class="page-posts-list__icon" :size="size" flat round icon="delete">
+            <q-btn class="page-posts-list__icon" size="md" flat round icon="delete"  @click="openModal(card.id)">
               <q-tooltip>Excluir</q-tooltip>
             </q-btn>
           </div>
@@ -45,26 +45,58 @@
       </card>
     </div>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination color="grey-9" v-model="current" :max="5" />
+      <q-pagination color="brand" v-model="current" :max="5" />
     </div>
+
+    <dialog-confirm v-model="isOpenModal" :content="contentDialog" @cancel="openModal" @confirm="handleDelete" />
   </div>
 </template>
 
 <script>
-import Card from 'components/Card.vue'
+import Card from 'components/Card'
 import { mapActions, mapGetters } from 'vuex'
+import DialogConfirm from 'components/DialogConfirm'
 
 export default {
   components: {
-    Card
+    Card,
+    DialogConfirm
   },
 
   computed: {
-    ...mapGetters({ postsList: 'posts/postsList' })
+    ...mapGetters({
+      postsList: 'posts/postsList',
+      postDelete: 'posts/postDelete'
+    }),
+
+    contentDialog () {
+      return {
+        subtitle: 'Tem certeza que deseja excluir este post?',
+        labelCancel: 'Cancelar',
+        labelSave: 'Confirmar'
+      }
+    }
   },
 
   methods: {
-    ...mapActions({ getPosts: 'posts/getPosts' })
+    ...mapActions({
+      getPosts: 'posts/getPosts',
+      deletePost: 'posts/deletePost'
+    }),
+
+    postEdit (id) {
+      this.$router.push({ name: 'DetailsPostEdit', query: { id } })
+    },
+
+    async handleDelete () {
+      await this.deletePost(this.idPost)
+      this.$router.go()
+    },
+
+    openModal (id) {
+      this.isOpenModal = !this.isOpenModal
+      this.idPost = id
+    }
   },
 
   async created () {
@@ -80,7 +112,9 @@ export default {
     return {
       text: '',
       current: 1,
-      size: 'md'
+      isOpenModal: false,
+      idPost: '',
+      content: {}
     }
   },
 
