@@ -15,7 +15,7 @@
     </div>
 
     <div class="q-mt-md row justify-end q-pa-sm">
-      <q-btn color="brand q-mr-sm" label="Voltar" @click="$router.go(-1) "/>
+      <q-btn color="brand q-mr-sm" label="Voltar" @click="comeBack"/>
       <q-btn color="brand q-mr-sm" label="Salvar" @click="handleSave" />
       <q-btn v-if="idPost" color="brand" label="Excluir" @click="openModal" />
     </div>
@@ -70,8 +70,11 @@ export default {
 
     openInputUrl () {
       this.isEditImage = true
-    }
+    },
 
+    comeBack () {
+      this.$router.go(-1)
+    }
   },
 
   computed: {
