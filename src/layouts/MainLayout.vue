@@ -6,7 +6,8 @@
         <div class="q-gutter-sm">
           <q-breadcrumbs active-color="white">
             <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Home" icon="home" :to="{ name: 'PostsList' }" />
-            <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Autores" icon="person" />
+            <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Autores" icon="person" :to="{ name: 'AuthorsList' }" />
+            <q-breadcrumbs-el class="q-ml-md cursor-pointer non-selectable" label="Autores" icon="person" :to="{ name: 'AuthorsList' }" />
           </q-breadcrumbs>
         </div>
       </q-toolbar>

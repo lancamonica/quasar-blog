@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import posts from '../store/modules/posts'
+import authors from './modules/authors.js'
 
 // import example from './module-example'
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       // example
-      posts
+      posts,
+      authors
     },
 
     // enable strict mode (adds overhead!)
